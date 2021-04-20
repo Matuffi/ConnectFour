@@ -93,12 +93,12 @@ public class Game {
                 cust.PrintBoard(gameBoard, sizeX, sizeY, chars, biggerSpacing);
                 cust.PrintIndexes(numberBlacklist, sizeX, biggerSpacing);
                 
-                // If previous input failed
-                if(inputRepeat){
-                    System.out.printf("ERR: Please input a NUMBER that isn't crossed out.\n");
-                }
-
+                
                 System.out.printf("It is player %s's turn\n\n", chars[playerIndex]);
+
+                // If previous input failed
+                if(inputRepeat) System.out.printf("ERR: Please input a NUMBER that isn't crossed out.\n\n");
+
                 System.out.printf("Your input - ");
                 input = scan.nextLine();
 
@@ -169,10 +169,10 @@ public class Game {
 
         if(won){
             winnerIndex = playerIndex;
-            System.out.printf("Player  - %s -  won the game\n", chars[playerIndex]);
+            System.out.printf("WINNER  -  %s\n", chars[playerIndex]);
         }
         else if(!gameRunning){
-            System.out.printf("Game ended with a tie\n");
+            System.out.printf("Game ended with a TIE\n");
             winnerIndex = 0;
         }
 
