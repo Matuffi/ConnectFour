@@ -9,20 +9,26 @@ import java.util.Scanner;
 public class CustomFunctions {
 
     // Print a given board
-    public void PrintBoard(int[][] currentBoard, int boardSizeX, int boardSizeY, String[] chars){
+    public void PrintBoard(int[][] currentBoard, int boardSizeX, int boardSizeY, String[] chars, boolean biggerSpacing){
 
-        System.out.printf("\n");
+        int space = biggerSpacing ? 3 : 2;
 
         for(int y = boardSizeY - 1; y >= 0; y--){
             for(int x = 0; x < boardSizeX; x++){
-                System.out.printf("%2s", chars[currentBoard[x][y]]);
+
+                System.out.printf("%" + space + "s", chars[currentBoard[x][y]]);
             }
             System.out.printf("\n");
         }   
+
+        System.out.printf("\n");
     }
 
     // Print column indexes (blacklist)
-    public void PrintIndexes(int[] numberBlacklist, int boardSizeX) {
+    public void PrintIndexes(int[] numberBlacklist, int boardSizeX, boolean biggerSpacing) {
+
+        int space = biggerSpacing ? 3 : 2;
+
         for(int i = 0; i < boardSizeX; i++){
 
             String out = String.valueOf(i + 1);
@@ -31,8 +37,9 @@ public class CustomFunctions {
                 out = "#";
             }
 
-            System.out.printf("%2s", out);
+            System.out.printf("%" + space + "s", out);
         }
+        System.out.printf("\n\n");
     }
 
     public void PrintFromFile(String fileLocation) throws FileNotFoundException{
@@ -51,7 +58,7 @@ public class CustomFunctions {
     }
 
     // Add a piece to the board and return y position
-    public int AddToBoard(int[][] gameBoard, int player, int xIndex){
+    public int AddToBoardAndReturnPos(int[][] gameBoard, int player, int xIndex){
         
         int yPos = 0;
         while(true){
@@ -165,8 +172,25 @@ public class CustomFunctions {
     }
 
     // Check if input is a integer & isn't in blacklist & fits in the board
+    public boolean CheckInput(String in){
+        
+        if (in == null) {
+            return false;
+        }
+        try {
+            Integer.parseInt(in);
+        } catch (NumberFormatException ex){
+            return false;
+        }
+        return true;
+    }
+
+    // Check if input is a integer & isn't in blacklist & fits in the board
     public boolean CheckInput(String in, int[] blacklist, int boardSizeX){
 
+        if (in == null) {
+            return false;
+        }
         try {
             int num = Integer.parseInt(in);
             if(!Contains(blacklist, num) && num > 0 && num <= boardSizeX){
@@ -193,5 +217,16 @@ public class CustomFunctions {
         } catch (IOException | InterruptedException ex){
 
         }
+    }
+
+    // Pauses program
+    public void pressEnterToContinue(){ 
+
+        System.out.printf("\nPress Enter to continue... ");
+        try {
+            System.in.read();
+        }  
+        catch(Exception e){
+        }  
     }
 }

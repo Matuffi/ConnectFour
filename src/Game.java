@@ -13,20 +13,22 @@ public class Game {
     Scanner scan = new Scanner(System.in);
     CustomFunctions cust = new CustomFunctions();
     
-    private int defaultSize = 6;
-    private int minSize = 4;
-    private int maxSize = 32;
-    private int sizeX = defaultSize;
-    private int sizeY = defaultSize;
+    public static int minSize = 4;
+    public static int maxSize = 32;
+    private int sizeX = 7;
+    private int sizeY = 6;
+    private boolean biggerSpacing;
 
     public int winnerIndex;
+    public String timeElapsedString;
+    public int gameMoves;
 
     /* 
     index 0: empty
     index 1: player 1
     index 2: player 2
     */
-    private String[] chars = {
+    public static String[] chars = {
         ".", "O", "X"
     };
 
@@ -53,6 +55,8 @@ public class Game {
         sizeY = sizeY < minSize ? minSize : sizeY;
         sizeX = sizeX > maxSize ? maxSize : sizeX;
         sizeY = sizeY > maxSize ? maxSize : sizeY;
+
+        biggerSpacing = sizeX >= 10 ? true : false;
         
         MainLoop(new int[sizeX][sizeY]);
     }
@@ -74,25 +78,28 @@ public class Game {
         boolean inputRepeat;
         
         Instant start = Instant.now();
+        gameMoves = 0;
 
         gameloop:
         do{
+            gameMoves++;
+
             // Get player input
             inputRepeat = false;
             do{
                 cust.clrscr();
-
+                
+                // Print board and ask input
+                cust.PrintBoard(gameBoard, sizeX, sizeY, chars, biggerSpacing);
+                cust.PrintIndexes(numberBlacklist, sizeX, biggerSpacing);
+                
                 // If previous input failed
                 if(inputRepeat){
-                    System.out.printf("\n");
-                    System.out.println("ERR: Please input a NUMBER that isn't crossed out.");
+                    System.out.printf("ERR: Please input a NUMBER that isn't crossed out.\n");
                 }
 
-                // Print board and ask input
-                cust.PrintBoard(gameBoard, sizeX, sizeY, chars);
-                System.out.println();
-                cust.PrintIndexes(numberBlacklist, sizeX);
-                System.out.printf("\n\nYour input - ");
+                System.out.printf("It is player %s's turn\n\n", chars[playerIndex]);
+                System.out.printf("Your input - ");
                 input = scan.nextLine();
 
                 if(input.equals("/end")){
@@ -102,12 +109,12 @@ public class Game {
                     gameRunning = false;
                     break gameloop;
                 }
-                if(input.equals("/p1won")){
+                if(input.equals("/p1")){
                     won = true;
                     playerIndex = 1;
                     break gameloop;
                 }
-                if(input.equals("/p2won")){
+                if(input.equals("/p2")){
                     won = true;
                     playerIndex = 2;
                     break gameloop;
@@ -126,7 +133,7 @@ public class Game {
 
             // Add piece to board and log the y position
             xPos = Integer.parseInt(input) - 1;
-            yPos = cust.AddToBoard(gameBoard, playerIndex, xPos);
+            yPos = cust.AddToBoardAndReturnPos(gameBoard, playerIndex, xPos);
 
             // If a row is full - add the row to blacklist
             if(yPos + 1 == sizeY){
@@ -151,23 +158,27 @@ public class Game {
 
         Instant end = Instant.now();
         long timeElapsed = Duration.between(start, end).toSeconds();
+        timeElapsedString = String.format("%d:%02d:%02d", timeElapsed / 3600, (timeElapsed % 3600) / 60, (timeElapsed % 60));
 
         cust.clrscr();
 
         // Game over screen
 
-        // cust.PrintFromFile("GameOver.txt");
-        cust.PrintBoard(gameBoard, sizeX, sizeY, chars);
+        cust.PrintFromFile("GameOver.txt");
+        cust.PrintBoard(gameBoard, sizeX, sizeY, chars, biggerSpacing);
 
         if(won){
-            System.out.printf("\n\nPlayer  - %s -  won the game", chars[playerIndex]);
             winnerIndex = playerIndex;
+            System.out.printf("Player  - %s -  won the game\n", chars[playerIndex]);
         }
         else if(!gameRunning){
-            System.out.printf("\n\nGame ended with a tie\n");
+            System.out.printf("Game ended with a tie\n");
             winnerIndex = 0;
         }
 
-        System.out.println("Ellapsed time - " + String.format("%d:%02d:%02d", timeElapsed / 3600, (timeElapsed % 3600) / 60, (timeElapsed % 60)));
+        System.out.printf("Ellapsed time - %s\nMoves - %d\n", timeElapsedString, gameMoves);
+
+        cust.pressEnterToContinue();
+        scan.nextLine();
     }
 }
