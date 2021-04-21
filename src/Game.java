@@ -1,5 +1,4 @@
-
-// ### GAME CONNECT FOUR ###
+// ###      GAME CONNECT FOUR      ###
 
 import java.io.FileNotFoundException;
 import java.time.Duration;
@@ -13,22 +12,24 @@ public class Game {
     Scanner scan = new Scanner(System.in);
     CustomFunctions cust = new CustomFunctions();
     
-    public static int minSize = 4;
-    public static int maxSize = 32;
+    public static final int minSize = 4;
+    public static final int maxSize = 32;
     private int sizeX = 7;
     private int sizeY = 6;
     private boolean biggerSpacing;
 
+    // Varriables for logging
     public int winnerIndex;
     public String timeElapsedString;
     public int gameMoves;
+    public boolean gameWasHalted;
 
     /* 
     index 0: empty
     index 1: player 1
     index 2: player 2
     */
-    public static String[] chars = {
+    public static final String[] chars = {
         ".", "O", "X"
     };
 
@@ -51,6 +52,7 @@ public class Game {
     // Initsialize game
     public void Start() throws FileNotFoundException{
 
+        // Keeping the board size in limits
         sizeX = sizeX < minSize ? minSize : sizeX;
         sizeY = sizeY < minSize ? minSize : sizeY;
         sizeX = sizeX > maxSize ? maxSize : sizeX;
@@ -66,6 +68,7 @@ public class Game {
 
     private void MainLoop(int[][] gameBoard) throws FileNotFoundException{
 
+        // numberBlacklist is used for marking full columns
         int[] numberBlacklist = new int[sizeX];
         int yPos;
         int xPos;
@@ -77,14 +80,16 @@ public class Game {
         boolean won = false;
         boolean inputRepeat;
         
+        // For logging the game time and moves that the game has taken
         Instant start = Instant.now();
         gameMoves = 0;
+        gameWasHalted = false;
 
         gameloop:
         do{
             gameMoves++;
 
-            // Get player input
+            // Get player input with validated input
             inputRepeat = false;
             do{
                 cust.clrscr();
@@ -93,15 +98,15 @@ public class Game {
                 cust.PrintBoard(gameBoard, sizeX, sizeY, chars, biggerSpacing);
                 cust.PrintIndexes(numberBlacklist, sizeX, biggerSpacing);
                 
-                
                 System.out.printf("It is player %s's turn\n\n", chars[playerIndex]);
 
-                // If previous input failed
+                // Error code
                 if(inputRepeat) System.out.printf("ERR: Please input a NUMBER that isn't crossed out.\n\n");
 
                 System.out.printf("Your input - ");
                 input = scan.nextLine();
 
+                // Commands
                 if(input.equals("/end")){
                     break gameloop;
                 }
@@ -131,7 +136,7 @@ public class Game {
             } while(inputRepeat);
 
 
-            // Add piece to board and log the y position
+            // Add piece to board and get the y position
             xPos = Integer.parseInt(input) - 1;
             yPos = cust.AddToBoardAndReturnPos(gameBoard, playerIndex, xPos);
 
@@ -156,6 +161,7 @@ public class Game {
 
         } while(gameRunning);
 
+        // Get the time and format it to a String
         Instant end = Instant.now();
         long timeElapsed = Duration.between(start, end).toSeconds();
         timeElapsedString = String.format("%d:%02d:%02d", timeElapsed / 3600, (timeElapsed % 3600) / 60, (timeElapsed % 60));
@@ -163,10 +169,10 @@ public class Game {
         cust.clrscr();
 
         // Game over screen
-
         cust.PrintFromFile("GameOver.txt");
         cust.PrintBoard(gameBoard, sizeX, sizeY, chars, biggerSpacing);
 
+        // If the game exited with won set to true, there is a winner. Otherwise it was a tie. If gameRunning is true, the game was exited with a command.
         if(won){
             winnerIndex = playerIndex;
             System.out.printf("WINNER  -  %s\n", chars[playerIndex]);
@@ -174,6 +180,9 @@ public class Game {
         else if(!gameRunning){
             System.out.printf("Game ended with a TIE\n");
             winnerIndex = 0;
+        }
+        else{
+            gameWasHalted = true;
         }
 
         System.out.printf("Ellapsed time - %s\nMoves - %d\n", timeElapsedString, gameMoves);

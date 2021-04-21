@@ -1,4 +1,4 @@
-// ### CUSTOM FUNCTIONS ###
+// ###      CUSTOM FUNCTIONS      ###
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class CustomFunctions {
 
-    // Print a given board
+    // Print a given board and adapt if the board needs to have bigger grid spaces if the column indexes are 2 didgit numbers
     public void PrintBoard(int[][] currentBoard, int boardSizeX, int boardSizeY, String[] chars, boolean biggerSpacing){
 
         int space = biggerSpacing ? 3 : 2;
@@ -41,6 +41,7 @@ public class CustomFunctions {
         System.out.printf("\n\n");
     }
 
+    // Gets a file and prints it line by line. Escapes \, " and '
     public void PrintFromFile(String fileLocation) throws FileNotFoundException{
         Scanner file = new Scanner(new File(fileLocation));
 
@@ -73,6 +74,7 @@ public class CustomFunctions {
     // Check if an added piece finished the game
     public boolean CheckWin(int[][] currentBoard, int lastX, int lastY, int player){
 
+        // Horizontal check
         int count = 0;
         int iY;
 
@@ -88,7 +90,7 @@ public class CustomFunctions {
             }
         }
 
-
+        // Vertical check
         count = 0;
 
         for(int i = 0; i < currentBoard[lastX].length; i++){
@@ -103,7 +105,7 @@ public class CustomFunctions {
             }
         }
 
-
+        // Diagonal (top-left to bottom-right) check
         count = 0;
         int offset = lastY - lastX;
 
@@ -128,7 +130,7 @@ public class CustomFunctions {
             }
         }
 
-
+        // Diagonal (bottom-left to top-right) check
         count = 0;
         int sum = lastX + lastY;
         for(int iX = 0; iX < currentBoard.length; iX++){
@@ -152,7 +154,7 @@ public class CustomFunctions {
             }
         }
 
-
+        // If none of the checks were positive, the function returns false
         return false;
     }
 
@@ -170,7 +172,7 @@ public class CustomFunctions {
         return state;
     }
 
-    // Check if input is a integer & isn't in blacklist & fits in the board
+    // Check if input is a integer
     public boolean CheckInput(String in){
         
         if (in == null) {
@@ -218,7 +220,8 @@ public class CustomFunctions {
         }
     }
 
-    // Pauses program
+    // Pauses program until user presses Enter
+    // After calling this function, there must be a Scanner.ReadLine() after it to eat the "\n" that System.in.read() didn't catch
     public void pressEnterToContinue(){ 
 
         System.out.printf("\nPress Enter to continue... ");
