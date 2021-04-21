@@ -1,6 +1,5 @@
 // ###      MAIN PROGRAM      ###
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileOutputStream;
@@ -49,7 +48,7 @@ public class Main {
             
             // Commands
             if(input.equals("/clearlog")){
-                PrintWriter clearLog = new PrintWriter(new File("leaderboardLog.txt"));
+                PrintWriter clearLog = new PrintWriter(cust.GetFile("leaderboardLog.txt"));
                 clearLog.print("");
                 clearLog.close();
                 continue;
@@ -159,7 +158,7 @@ public class Main {
     // Add game stats to leaderboard
     private static void SaveToLeaderboard(int winnerIndex, String elapsedTime, int gameMoves, boolean gameWasCancelled, boolean gameEnded, int sizeX, int sizeY) throws FileNotFoundException {
 
-        FileOutputStream fos = new FileOutputStream("leaderboardLog.txt", true);
+        FileOutputStream fos = new FileOutputStream(cust.GetFile("leaderboardLog.txt"), true);
         PrintWriter writer = new PrintWriter(fos);
 
         String playerName;
@@ -238,7 +237,7 @@ public class Main {
         cust.PrintFromFile("Leaderboard.txt");
 
         // Check if the leaderboard has info and displays it
-        if(new File("leaderboardLog.txt").length() == 0){
+        if(cust.GetFile("leaderboardLog.txt").length() == 0){
             System.out.printf("Leaderboard is empty\n");
         }
         else{

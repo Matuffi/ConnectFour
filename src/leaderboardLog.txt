@@ -1,2 +1,0 @@
-DATE: 2021-04-21 15:10 | TIE       |                | TIME: 0:00:06 | MOVES: 1    | BOARD: CLASSIC
-DATE: 2021-04-21 15:10 | WINNER: X | NAME: HAHA     | TIME: 0:00:04 | MOVES: 1    | BOARD: 17X5

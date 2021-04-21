@@ -42,12 +42,13 @@ public class CustomFunctions {
     }
 
     // Gets a file and prints it line by line. Escapes \, " and '
-    public void PrintFromFile(String fileLocation) throws FileNotFoundException{
-        Scanner file = new Scanner(new File(fileLocation));
+    public void PrintFromFile(String fileName) throws FileNotFoundException{
+
+        Scanner fileWrite = new Scanner(GetFile(fileName));
 
         String line;
-        while(file.hasNextLine()){
-            line = file.nextLine();
+        while(fileWrite.hasNextLine()){
+            line = fileWrite.nextLine();
 
             line.replace("\\", "\\\\");
             line.replace("\"", "\\\"");
@@ -56,6 +57,40 @@ public class CustomFunctions {
             System.out.println(line);
         }
     }
+
+    public File GetFile(String fileName){
+
+        File file;
+
+        if(FindFilePath(fileName) != null){
+            return new File(FindFilePath(fileName));
+        }
+        
+        ClassLoader classLoader = getClass().getClassLoader();
+        file = new File(classLoader.getResource(fileName).getFile());
+
+        if(file.exists()){
+            return file;
+        }
+
+        return null;
+    }
+
+    public String FindFilePath(String fileName){
+
+        String filePath = fileName;
+
+        if(new File(filePath).exists()) return filePath;
+        filePath = "src/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+        filePath = "textFiles/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+        filePath = "../textFiles/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+
+        return null;
+    }
+
 
     // Add a piece to the board and return y position
     public int AddToBoardAndReturnPos(int[][] gameBoard, int player, int xIndex){
