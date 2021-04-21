@@ -93,7 +93,7 @@ public class Main {
                 game.Start();
                 
                 // Save game stats to leaderboard and exit back to the Main menu
-                SaveToLeaderboard(game.winnerIndex, game.timeElapsedString, game.gameMoves, game.gameWasHalted);
+                SaveToLeaderboard(game.winnerIndex, game.timeElapsedString, game.gameMoves, game.gameWasCancelled, game.gameEnded, game.sizeX, game.sizeY);
                 return;
             }
             if(input.equals("2") || input.toUpperCase().equals("CUSTOM") || input.toUpperCase().equals("CU")){
@@ -148,7 +148,7 @@ public class Main {
                 game.Start();
                 
                 // Save game stats to leaderboard and exit back to the Main menu
-                SaveToLeaderboard(game.winnerIndex, game.timeElapsedString, game.gameMoves, game.gameWasHalted);
+                SaveToLeaderboard(game.winnerIndex, game.timeElapsedString, game.gameMoves, game.gameWasCancelled, game.gameEnded, game.sizeX, game.sizeY);
                 return;
             }
             repeatLoop = true;
@@ -157,20 +157,27 @@ public class Main {
     }
 
     // Add game stats to leaderboard
-    private static void SaveToLeaderboard(int winnerIndex, String elapsedTime, int gameMoves, boolean gameWasHalted) throws FileNotFoundException {
+    private static void SaveToLeaderboard(int winnerIndex, String elapsedTime, int gameMoves, boolean gameWasCancelled, boolean gameEnded, int sizeX, int sizeY) throws FileNotFoundException {
 
         FileOutputStream fos = new FileOutputStream("leaderboardLog.txt", true);
         PrintWriter writer = new PrintWriter(fos);
 
         String playerName;
 
+        // Format the board style
+        String gameBoardSize = sizeX == 7 && sizeY == 6 ? "CLASSIC" : String.format("%2d X %2d", sizeX, sizeY);
+
         boolean repeatLoop = false;
         boolean onlyLetters = true;
 
-        // If the game was canceled with a command
-        if(gameWasHalted){
+        // If game was exited with a command
+        if(!gameEnded){
+            writer.printf("DATE: %s %s | HALTED    |                | TIME: %-7s | MOVES: %-4d | BOARD: %s\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), elapsedTime, gameMoves, gameBoardSize);
+        }
+        // If the game was ended with a command
+        else if(gameWasCancelled){
             // Write to leaderboard
-            writer.printf("DATE: %s %s | CANCELLED |                | TIME: %-7s | MOVES: %-4d\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), elapsedTime, gameMoves);
+            writer.printf("DATE: %s %s | CANCELLED |                | TIME: %-7s | MOVES: %-4d | BOARD: %s\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), elapsedTime, gameMoves, gameBoardSize);
         } 
         // Game was won
         else if(winnerIndex != 0){
@@ -199,12 +206,12 @@ public class Main {
             playerName = input.toUpperCase();
 
             // Writo to leaderboard
-            writer.printf("DATE: %s %s | WINNER: %s | NAME: %-8s | TIME: %-7s | MOVES: %-4d\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), Game.chars[winnerIndex], playerName, elapsedTime, gameMoves);
+            writer.printf("DATE: %s %s | WINNER: %s | NAME: %-8s | TIME: %-7s | MOVES: %-4d | BOARD: %s\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), Game.chars[winnerIndex], playerName, elapsedTime, gameMoves, gameBoardSize);
         }
         // Tie
         else{
             // Write to leaderboard
-            writer.printf("DATE: %s %s | TIE       |                | TIME: %-7s | MOVES: %-4d\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), elapsedTime, gameMoves);
+            writer.printf("DATE: %s %s | TIE       |                | TIME: %-7s | MOVES: %-4d | BOARD: %s\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), elapsedTime, gameMoves, gameBoardSize);
         }
 
         writer.close();

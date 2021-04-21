@@ -23,5 +23,6 @@
         /clearlog  -  clears the leaderboard (NB! isn't reversible)
 
     In game:
+        /tie  -  finishes the game with a tie
         /end  -  finishes the game (no winner)
         /restart  -  restarts the game with the same board

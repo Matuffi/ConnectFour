@@ -14,15 +14,16 @@ public class Game {
     
     public static final int minSize = 4;
     public static final int maxSize = 32;
-    private int sizeX = 7;
-    private int sizeY = 6;
+    public int sizeX = 7;
+    public int sizeY = 6;
     private boolean biggerSpacing;
 
     // Varriables for logging
     public int winnerIndex;
     public String timeElapsedString;
     public int gameMoves;
-    public boolean gameWasHalted;
+    public boolean gameWasCancelled;
+    public boolean gameEnded;
 
     /* 
     index 0: empty
@@ -83,7 +84,8 @@ public class Game {
         // For logging the game time and moves that the game has taken
         Instant start = Instant.now();
         gameMoves = 0;
-        gameWasHalted = false;
+        gameWasCancelled = false;
+        gameEnded = false;
 
         gameloop:
         do{
@@ -161,6 +163,8 @@ public class Game {
 
         } while(gameRunning);
 
+        gameEnded = true;
+
         // Get the time and format it to a String
         Instant end = Instant.now();
         long timeElapsed = Duration.between(start, end).toSeconds();
@@ -182,7 +186,7 @@ public class Game {
             winnerIndex = 0;
         }
         else{
-            gameWasHalted = true;
+            gameWasCancelled = true;
         }
 
         System.out.printf("Ellapsed time - %s\nMoves - %d\n", timeElapsedString, gameMoves);
