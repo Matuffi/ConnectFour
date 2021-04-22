@@ -41,7 +41,7 @@ public class CustomFunctions {
         System.out.printf("\n\n");
     }
 
-    // Gets a file and prints it line by line. Escapes \, " and '
+    // Gets a file and prints it line by line. Escapes " \ ", " " " and " ' "
     public void PrintFromFile(String fileName) throws FileNotFoundException{
 
         Scanner fileWrite = new Scanner(GetFile(fileName));
@@ -58,34 +58,50 @@ public class CustomFunctions {
         }
     }
 
+    // Get a file
     public File GetFile(String fileName){
 
-        File file;
+        // File file;
 
         if(FindFilePath(fileName) != null){
             return new File(FindFilePath(fileName));
         }
         
+        // NB! This code needs some work
+        // When the file hasn't been found in project folders, then the code must be in .jar file
+        // This code tries to get the file from a jar file
+
+        /*
         ClassLoader classLoader = getClass().getClassLoader();
-        file = new File(classLoader.getResource(fileName).getFile());
+        file = new File(classLoader.getResource("/" + fileName).getFile());
 
         if(file.exists()){
             return file;
         }
+        */
 
         return null;
     }
 
+    // Get file's path
     public String FindFilePath(String fileName){
 
         String filePath = fileName;
-
         if(new File(filePath).exists()) return filePath;
+
         filePath = "src/" + fileName;
         if(new File(filePath).exists()) return filePath;
+
         filePath = "textFiles/" + fileName;
         if(new File(filePath).exists()) return filePath;
+
         filePath = "../textFiles/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+
+        filePath = "src/textFiles/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+
+        filePath = "../src/textFiles/" + fileName;
         if(new File(filePath).exists()) return filePath;
 
         return null;
