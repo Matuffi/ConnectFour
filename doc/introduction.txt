@@ -1,0 +1,46 @@
+Console Game Connect Four v0.9
+Mathias (Matuffi/Mashas) Siimon
+https://github.com/Matuffi
+2021 22 aprill
+
+    Programm:
+
+Programm simuleerib ühte tuntut lauamängu "Connect Four", maakeeli "Gravitrips". Programm on suurelt soovituslik kahe inimese jaoks, kuid mitte nõutud (ega ei soovita).
+Programm on inglise keelne.
+
+Programmis liigutakse ainult teksti kaudu. Kui programmile sisend ei sobi, siis annab ta märku ning laseb kasutajal uuesti sisestada. Sisestada tuleb number, millist valikut soovite.
+
+Programmis on ka mõningad käsud, kuid nendest hiljem.
+
+
+    Menüüd:
+
+Programmi sisenedes saab mängija 4 valikut: Uus mäng, Reeglid, Edetabel või Väljumine. 
+Reegleid vaadates kuvatakse selle dokumendiga sarnane kuid lihtsustatud ja inglise keelne õpetus.
+Edetabel kuvab infot eelmiste mängude kohta.
+
+Valides Uue mängu, sab kasutaja valida, millisel mängulaual mängida. Kas klassikalisel (7x6) või kohandataval.
+
+
+    Mäng:
+
+Tegu on kaksikmänguga. Eesmärk on ühendada 4 oma märgiga nuppu kas horisontaalselt, vertikaalselt või diagonaalselt.
+Iga mängija käib kordamööda. Mängija number 1 on "O" ja mängija number 2 on "X".
+Nupud sisestatakse mängulaua pealt, kust nad gravitatsiooniga kukuvad oma veerus lähima tühja koha peale. Nupud liiguvad ainult veergudes.
+Esimene, kes ühendab 4, võidab.
+
+
+    Mängimine:
+
+Ekraanil kuvatakse mängulaud. Mängulaua all on numbrid, mis märgivad veeru numbrit.
+Mängija käib oma käigu kirjutades käsureale numbri, millisesse veergu soovib oma nupu panna, ja vajutab Enter.
+Täis veergudele tekib "#" ning nendesse enam nuppe ei saa panna.
+Kui nupp on sisestatud, siis enam seda tagasi võtta ei saa. Nii et olge hoolsad.
+
+Kui mäng sai läbi ja on olemas võitja, siis küsitakse talt nime (ei ole kohustuslik, võib vajutada Enter), mis lisatakse tabelisse, kust on võimalik leida eelnevate mängude skoore.
+
+Kui mängulaud saab täis ilma võitjata, siis mäng lõppeb viigiga.
+
+
+    Käsud:
+

@@ -1,0 +1,48 @@
+Console Game Connect Four v0.9
+Mathias (Matuffi/Mashas) Siimon
+https://github.com/Matuffi
+2021 22 aprill
+
+
+NB! Praeguse seisuga peavad kompilleeritud failid jääma bin folderisse.
+
+
+    Programmi käivitamine:
+
+Süsteemil peab olema Java installeeritud ja uuendatud.
+
+Tuleb minna projekti bin kausta. Seal on kompilleeritud klassid ja .jar file. 
+Vahet pole kas valite klassi faili või .jar faili. Mõlemad käivitavad viimase mängu versiooni.
+
+Klass fail:
+
+1. Ava käsurida (cmd) ning sisesta - 
+java Main
+
+2. Avada bin kaustas fail - Run.bat
+
+JAR fail:
+
+1. Ava käsurida (cmd) ning sisesta - 
+java -jar ConnectFour.jar
+
+2. Avada bin kaustas fail - RunJar.bat
+
+
+    Programmi kompilleerimine:
+
+Klass fail:
+
+Tuleb minna src kausta. Ava käsurida (cmd) ning sisesta - 
+javac Main.java
+
+Soovituslik liigutada .class failid bin kausta
+
+JAR fail:
+
+Tuleb kompilleerida Klass failid bin kausta (Eelmine kompilleerimine, kuid .class failide liigutamine on kohustuslik).
+
+1. Tuleb minna bin kausta. Ava käsurida (cmd) ning sisesta - 
+jar cfvm Connect.jar ../src/MANIFEST.MF CustomFunctions.class Game.class Main.class
+
+2. Avada bin kaustas fail - CompileJar.bat

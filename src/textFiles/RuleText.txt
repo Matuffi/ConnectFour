@@ -2,7 +2,7 @@
 
     This is a 2 player game. The goal is to get 4 pieces in a row eather orthogonally or diagonally.
     Each player takes turns after each other. Player number 1 is "O" and player number 2 is "X".
-    Pieces are inserted from the top of the game board where they will fall down on the other pieces.
+    Pieces are inserted from the top of the game board where they will fall down on the other pieces. Pieces only move in columns.
     First one who connects 4 in a row wins.
 
     During the game the player whose turn it is can chose a column where to put the piece. "#" columns are full and can not be used anymore.
@@ -10,7 +10,7 @@
     When pressing "PLAY" user is asked wheather they want to play classic connect four (is played on a 7x6 board) or they want to play on a custom board.
     When playing custom game board size is glamped to the min and max when going over or under the limits.
 
-    After the game the winner is can enter his/her name (isn't required) to show in the leaderboard. When the game ends with a tie, there isn't a winner.
+    After the game the winner is can enter his/her name (isn't required, just press Enter) to show in the leaderboard. When the game ends with a tie, there isn't a winner.
 
     In the main menu you can go to leaderboard where you can see previous games and their stats.
 
