@@ -169,10 +169,8 @@ public class Main {
         boolean repeatLoop = false;
         boolean onlyLetters = true;
 
-        // If game was exited with a command
-        if(!gameEnded){
-            writer.printf("DATE: %s %s | HALTED    |                | TIME: %-7s | MOVES: %-4d | BOARD: %s\n", LocalDate.now(), LocalTime.now().truncatedTo(ChronoUnit.MINUTES), elapsedTime, gameMoves, gameBoardSize);
-        }
+        // If game was exited with a command, do nothing
+        if(!gameEnded){}
         // If the game was ended with a command
         else if(gameWasCancelled){
             // Write to leaderboard

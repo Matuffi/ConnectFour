@@ -7,42 +7,76 @@ https://github.com/Matuffi
 NB! Praeguse seisuga peavad kompilleeritud failid jääma bin folderisse.
 
 
-    Programmi käivitamine:
-
-Süsteemil peab olema Java installeeritud ja uuendatud.
-
-Tuleb minna projekti bin kausta. Seal on kompilleeritud klassid ja .jar file. 
-Vahet pole kas valite klassi faili või .jar faili. Mõlemad käivitavad viimase mängu versiooni.
-
-Klass fail:
-
-1. Ava käsurida (cmd) ning sisesta - 
-java Main
-
-2. Avada bin kaustas fail - Run.bat
-
-JAR fail:
-
-1. Ava käsurida (cmd) ning sisesta - 
-java -jar ConnectFour.jar
-
-2. Avada bin kaustas fail - RunJar.bat
+Enamus asjadeks on ConnectFour/bin folderisse .bat failid tehtud, mille avamine teeb töö sinu eest ära.
+Järgnevalt 
 
 
-    Programmi kompilleerimine:
+====== PROGRAMMI KÄIVITAMINE ======
+  ________________________________________________________________________________________________
+ /                                                                                                \
+| Süsteemil peab olema Java installeeritud ja uuendatud.                                           |             
+|                                                                                                  |
+| Tuleb minna projekti bin kausta. Seal on kompilleeritud klassid ja .jar file.                    |              
+| Vahet pole kas valite klassi faili või .jar faili. Mõlemad käivitavad viimase mängu versiooni.   |                  
+ \________________________________________________________________________________________________/
 
-Klass fail:
+NB! Veendu, et viibid .../ConnectFour/bin kaustas.
+
+
+Klass fail
+----------
+
+Ava käsurida (cmd) ning sisesta - 
+
+◜            ◝
+   java Main
+◟            ◞
+
+VÕI avada bin kaustas fail - "Run.bat"
+
+
+JAR fail
+--------
+
+Ava käsurida (cmd) ning sisesta - 
+
+◜                            ◝
+   java -jar ConnectFour.jar
+◟                            ◞
+
+Või avada bin kaustas fail - "RunJar.bat"
+
+
+
+====== PROGRAMMI KOMPILLEERIMINE ======
+  _____________________________________________________
+ /                                                     \
+| Süsteemil peab olema Java JDK (8, 11) installeeritud. |                      
+ \_____________________________________________________/
+
+
+Klass fail
+----------
 
 Tuleb minna src kausta. Ava käsurida (cmd) ning sisesta - 
-javac Main.java
 
-Soovituslik liigutada .class failid bin kausta
+◜                  ◝
+   javac Main.java
+◟                  ◞
 
-JAR fail:
+(Soovituslik liigutada .class failid bin kausta)
 
-Tuleb kompilleerida Klass failid bin kausta (Eelmine kompilleerimine, kuid .class failide liigutamine on kohustuslik).
 
-1. Tuleb minna bin kausta. Ava käsurida (cmd) ning sisesta - 
-jar cfvm Connect.jar ../src/MANIFEST.MF CustomFunctions.class Game.class Main.class
+JAR fail
+--------
 
-2. Avada bin kaustas fail - CompileJar.bat
+NB! --- Eelnevalt tuleb kompilleerida .class failid bin kausta (Eelmine kompilleerimine, kuid .class failide liigutamine on kohustuslik).
+
+
+Tuleb minna bin kausta. Ava käsurida (cmd) ning sisesta - 
+
+◜                                                                                     ◝
+   jar cfvm Connect.jar ../src/MANIFEST.MF CustomFunctions.class Game.class Main.class
+◟                                                                                     ◞
+
+VÕI avada bin kaustas fail - "CompileJar.bat"
