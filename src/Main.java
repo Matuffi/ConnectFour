@@ -34,7 +34,7 @@ public class Main {
             System.out.printf("1. PLAY\n2. RULES\n3. LEADERBOARD\n4. EXIT\n\n");
 
             // Error code
-            if(repeatLoop) System.out.printf("ERR: Please enter a valid input\n\n");
+            if(repeatLoop) System.out.printf("ERR: Please enter a number or first character(s) of your choice\n\n");
             repeatLoop = false;
 
             System.out.printf("Enter your choice - ");
@@ -78,7 +78,7 @@ public class Main {
             System.out.printf("1. CLASSIC (7x6)\n2. CUSTOM\n3. BACK\n\n");
 
             // Error code
-            if(repeatLoop) System.out.printf("ERR: Type the number/word/first letter of the choice of yours\n\n");
+            if(repeatLoop) System.out.printf("ERR: Please enter a number or first character(s) of your choice\n\n");
 
             System.out.printf("Enter your choice - ");
             input = scan.nextLine();
@@ -108,7 +108,7 @@ public class Main {
                     cust.PrintFromFile("CustomGame.txt");
                     
                     // Ask user input
-                    System.out.printf("Enter game board horizontal size (%d - %d)\n\n", Game.minSize, Game.maxSize);
+                    System.out.printf("Enter HORIZONTAL size (%d - %d)\n\n", Game.minSize, Game.maxSize);
                     
                     // Error code
                     if(repeatLoop) System.out.printf("ERR: Please enter a NUMBER\n\n");
@@ -129,7 +129,7 @@ public class Main {
                     cust.PrintFromFile("CustomGame.txt");
                     
                     // Ask for input
-                    System.out.printf("Enter game board vertical size (%d - %d)\n\n", Game.minSize, Game.maxSize);
+                    System.out.printf("Enter VERTICAL size (%d - %d)\n\n", Game.minSize, Game.maxSize);
 
                     // Error code
                     if(repeatLoop) System.out.printf("ERR: Please enter a NUMBER\n\n");
@@ -243,5 +243,6 @@ public class Main {
         }
 
         cust.pressEnterToContinue();
+        scan.nextLine();
     }
 }

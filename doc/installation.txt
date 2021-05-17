@@ -7,8 +7,8 @@ https://github.com/Matuffi
 NB! Praeguse seisuga peavad kompilleeritud failid jääma bin folderisse.
 
 
-Enamus asjadeks on ConnectFour/bin folderisse .bat failid tehtud, mille avamine teeb töö sinu eest ära.
-Järgnevalt 
+Kui kasutate windowsi, siis enamus asjadeks on ConnectFour/bin folderisse .bat failid tehtud, mille avamine teeb töö sinu eest ära.
+
 
 
 ====== PROGRAMMI KÄIVITAMINE ======
@@ -75,8 +75,8 @@ NB! --- Eelnevalt tuleb kompilleerida .class failid bin kausta (Eelmine kompille
 
 Tuleb minna bin kausta. Ava käsurida (cmd) ning sisesta - 
 
-◜                                                                                     ◝
-   jar cfvm Connect.jar ../src/MANIFEST.MF CustomFunctions.class Game.class Main.class
-◟                                                                                     ◞
+◜                                                                                      ◝
+   jar cfvm ConnectFour.jar ../src/MANIFEST.MF CustomFunctions.class Game.class Main.class 
+◟                                                                                      ◞
 
 VÕI avada bin kaustas fail - "CompileJar.bat"

@@ -100,10 +100,10 @@ public class Game {
                 cust.PrintBoard(gameBoard, sizeX, sizeY, chars, biggerSpacing);
                 cust.PrintIndexes(numberBlacklist, sizeX, biggerSpacing);
                 
-                System.out.printf("It is player %s's turn\n\n", chars[playerIndex]);
+                System.out.printf("Player - %s\n\n", chars[playerIndex]);
 
                 // Error code
-                if(inputRepeat) System.out.printf("ERR: Please input a NUMBER that isn't crossed out.\n\n");
+                if(inputRepeat) System.out.printf("ERR: Please enter a NUMBER of a column of your choice that isn't crossed out\n\n");
 
                 System.out.printf("Your input - ");
                 input = scan.nextLine();

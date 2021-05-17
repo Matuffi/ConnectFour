@@ -89,13 +89,22 @@ public class CustomFunctions {
         String filePath = fileName;
         if(new File(filePath).exists()) return filePath;
 
-        filePath = "src/" + fileName;
+        filePath = "bin/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+
+        filePath = "bin/textFiles" + fileName;
+        if(new File(filePath).exists()) return filePath;
+
+        filePath = "../bin/textFiles/" + fileName;
         if(new File(filePath).exists()) return filePath;
 
         filePath = "textFiles/" + fileName;
         if(new File(filePath).exists()) return filePath;
 
         filePath = "../textFiles/" + fileName;
+        if(new File(filePath).exists()) return filePath;
+
+        filePath = "src/" + fileName;
         if(new File(filePath).exists()) return filePath;
 
         filePath = "src/textFiles/" + fileName;
@@ -156,7 +165,40 @@ public class CustomFunctions {
             }
         }
 
+
+        /*
+        Diagonal checks iterate x position.
+
+        A algorithm will calculate the y position using the x position and a constant
+        */
+        
+
         // Diagonal (top-left to bottom-right) check
+
+        /*
+        Pseudo code:
+
+        calculate the offset between x and y positions
+
+        enter a loop and iterate x positions from 0 to board size x:
+            iterated y = iterated x + offset
+
+            if y is over the board size y:
+                exit loop (next points are all off the board)
+            
+            if i is less than 0:
+                skip loop iteration (these points are off the board, but future iterations will be on the board)
+            
+            NOTE - previoust cases are passed
+            if the point has player's index:
+                add one to piece counter
+
+                when the counter shows 4, then there is 4 pieces in a row:
+                    return true
+            else:
+                reset the piece counter
+        */
+
         count = 0;
         int offset = lastY - lastX;
 
@@ -182,17 +224,41 @@ public class CustomFunctions {
         }
 
         // Diagonal (bottom-left to top-right) check
+
+        /*
+        Pseudo code:
+
+        calculate the sum of lastX and lastY
+
+        enter a loop and iterate x positions from 0 to board size x:
+            iterated y = sum - iterated x (sum = x + y, then y = sum - x)
+
+            if iterated x is more than the sum:
+                exit the loop (every next y position is negative and thus not on the board)
+            
+            if iterated y is more that the board size y
+                skip loop iteration (the point is off the board, but future points will be on the board)
+            
+            NOTE - previoust cases are passed
+            if the point has player's index:
+                add one to piece counter
+
+                when the counter shows 4, then there is 4 pieces in a row:
+                    return true
+            else:
+                reset the piece counter
+        */
         count = 0;
         int sum = lastX + lastY;
         for(int iX = 0; iX < currentBoard.length; iX++){
+            iY = sum - iX;
+
             if(iX > sum){
                 break;
             }
-            if(sum - iX > currentBoard[iX].length - 1){
+            if(iY > currentBoard[iX].length - 1){
                 continue;
             }
-
-            iY = sum - iX;
 
             if(currentBoard[iX][iY] == player){
                 count++;
